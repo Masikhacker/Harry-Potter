@@ -1,18 +1,158 @@
-# Build and Release Folders
-bin-debug/
-bin-release/
-[Oo]bj/
-[Bb]in/
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harry Potter Graffiti Adventure</title>
+    <style>
+        body {
+            background-color: #111;
+            color: white;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            padding: 50px;
+            transition: background-color 1s ease;
+        }
 
-# Other files and folders
-.settings/
+        h1 {
+            font-size: 70px;
+            color: #ffcc00;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            animation: graffitiAnimation 5s ease-in-out infinite;
+        }
 
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
+        .bubble-text {
+            font-size: 40px;
+            color: #f4a300;
+            text-transform: capitalize;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3);
+            animation: bubbleAnimation 2s ease-in-out infinite;
+        }
 
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+        @keyframes graffitiAnimation {
+            0% {
+                transform: rotate(0deg);
+                color: #ffcc00;
+            }
+            50% {
+                transform: rotate(10deg);
+                color: #ff0080;
+            }
+            100% {
+                transform: rotate(-10deg);
+                color: #00ffcc;
+            }
+        }
+
+        @keyframes bubbleAnimation {
+            0% {
+                transform: scale(1);
+                text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                transform: scale(1.1);
+                text-shadow: 4px 4px 10px rgba(255, 255, 255, 0.5);
+            }
+            100% {
+                transform: scale(1);
+                text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        button {
+            font-size: 30px;
+            padding: 15px 30px;
+            background-color: #ff8000;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            margin-top: 50px;
+            transition: transform 0.3s ease;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            background-color: #ff5722;
+        }
+
+        .secret-message {
+            display: none;
+            font-size: 40px;
+            color: #00ff00;
+            margin-top: 50px;
+        }
+
+        .secret-room {
+            font-size: 50px;
+            color: #ff69b4;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .congratulations {
+            display: none;
+            font-size: 100px;
+            font-weight: bold;
+            color: #ff4500;
+            text-transform: uppercase;
+            text-shadow: 4px 4px 15px rgba(0, 0, 0, 0.5);
+            animation: congratulationsAnimation 3s ease-out forwards;
+        }
+
+        @keyframes congratulationsAnimation {
+            0% {
+                transform: scale(1);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Harry Potter is the Best!</h1>
+    <p class="bubble-text">I love Harry Potter SO much!</p>
+    <p id="adventureText">Press the button below to start your adventure:</p>
+
+    <button id="clickButton">Click Me!</button>
+
+    <p class="secret-message" id="secretMessage">You did it! You've found the secret room!</p>
+
+    <div class="congratulations" id="congratulationsMessage">YOU DID IT!</div>
+
+    <script>
+        let clickCount = 0;
+        const clickButton = document.getElementById("clickButton");
+        const secretMessage = document.getElementById("secretMessage");
+        const congratulationsMessage = document.getElementById("congratulationsMessage");
+        const adventureText = document.getElementById("adventureText");
+
+        clickButton.addEventListener("click", () => {
+            clickCount++;
+            if (clickCount === 10) {
+                clickButton.style.display = 'none'; // Hide the button after 10 clicks
+                adventureText.style.display = 'none'; // Hide the initial text
+                document.body.style.backgroundColor = "#4e4e4e";
+                document.body.innerHTML += '<div class="secret-room">You found the secret room!</div>';
+                setTimeout(() => {
+                    document.body.innerHTML += '<div class="congratulations" id="congratulationsMessage">YOU DID IT!</div>';
+                    document.getElementById('congratulationsMessage').style.display = 'block';
+                }, 500);
+            } else {
+                clickButton.textContent = `Clicked ${clickCount} times!`;
+            }
+        });
+    </script>
+</body>
+</html>
